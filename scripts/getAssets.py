@@ -1,6 +1,5 @@
 import requests
 import os
-import json
 
 # CONSTANTS
 TEMP_FOLDER_PATH = "../assets/temp"
@@ -90,8 +89,28 @@ def getItemsListAsJson(patchVersion):
     return refined_items_list
 
 
-# def getItemPicture(itemName, patch)
-    # todo
+def retrieveFullKeyFromName(itemName, refinedItemsList):
+    for item in refinedItemsList:
+        if item["name"] == itemName:
+            return item["full"]
+
+
+def getItemPicture(itemName, patch, refinedItemsList, pictureFileName):
+    full = retrieveFullKeyFromName(itemName, refinedItemsList)
+
+    url = "https://ddragon.leagueoflegends.com/cdn/" + patch + "/img/item/" + full
+
+    prepared_request = requests.Request("GET", url).prepare()
+
+    response = requests.Session().send(prepared_request)
+
+    data = response.content
+
+    file_path = os.path.join(
+        TEMP_FOLDER_PATH, pictureFileName + ".png")
+
+    with open(file_path, "wb") as f:
+        f.write(data)
 
 
 # TESTS
@@ -102,3 +121,5 @@ PATCH = getLastVersionAvailable()
 getChampProfilePicture(CHAMP_NAME)
 getChampLoadingScreenPicture(CHAMP_NAME)
 REFINED_ITEMS_LIST = getItemsListAsJson(PATCH)
+retrieveFullKeyFromName("Prowler's Claw", REFINED_ITEMS_LIST)  # 6693
+getItemPicture("Prowler's Claw", PATCH, REFINED_ITEMS_LIST, "testItem")
