@@ -2,7 +2,7 @@ import requests
 import os
 
 # CONSTANTS
-TEMP_FOLDER_PATH = "../assets/temp"
+TEMP_FOLDER_PATH = "assets/temp"
 
 
 def getLastVersionAvailable():
