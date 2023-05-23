@@ -1,14 +1,20 @@
 import requests
 import os
 
-# CONSTANTS
-PATCH = "13.10.1"  # To rework as dynamic or env var
+
+def getLastVersionAvailable():
+    response = requests.get(
+        "https://ddragon.leagueoflegends.com/api/versions.json")
+
+    data = response.json()
+
+    return data[0]
 
 
-def getChampProfilePicture(champName):
+def getChampProfilePicture(champName, patch):
     # Create a URL string.
     url = "https://cdn.communitydragon.org/" + \
-        PATCH + "/champion/" + champName + "/square"
+        patch + "/champion/" + champName + "/square"
 
     # Prepare the request.
     prepared_request = requests.Request("GET", url).prepare()
@@ -33,7 +39,10 @@ def getChampProfilePicture(champName):
     with open(file_path, "wb") as f:
         f.write(data)
 
+# def getItemPicture(itemName, patch)
+    # todo
+
 
 # TESTS
-
-getChampProfilePicture("aatrox")
+PATCH = getLastVersionAvailable()
+getChampProfilePicture("yuumi", PATCH)
