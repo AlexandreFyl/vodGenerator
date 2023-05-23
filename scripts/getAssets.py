@@ -97,6 +97,7 @@ def retrieveFullKeyFromName(itemName, refinedItemsList):
 
 
 def getItemPicture(itemName, patch, refinedItemsList, pictureFileName):
+    # No need of getBootsFunction we can just parametrize this one
     full = retrieveFullKeyFromName(itemName, refinedItemsList)
 
     url = "https://ddragon.leagueoflegends.com/cdn/" + patch + "/img/item/" + full
@@ -114,13 +115,29 @@ def getItemPicture(itemName, patch, refinedItemsList, pictureFileName):
         f.write(data)
 
 
+def getThreeFirstItems(itemNamesList, patch, refinedItemsList):
+    for index, item in enumerate(itemNamesList):
+        getItemPicture(item, patch, refinedItemsList, "item" + str(index + 1))
+
+
+def getFillersItems(itemNamesList, patch, refinedItemsList):
+    # Function used to suggest items to complete full build after the most import 3 items spike
+    # which is the most common item spike considering average game length
+    for index, item in enumerate(itemNamesList):
+        getItemPicture(item, patch, refinedItemsList, "item" + str(index + 4))
+
+
 # TESTS
 # Fake inputs
-CHAMP_NAME = "Yuumi"
-PATCH = getLastVersionAvailable()
+# CHAMP_NAME = "Yuumi"
+# PATCH = getLastVersionAvailable()
 
-getChampProfilePicture(CHAMP_NAME)
-getChampLoadingScreenPicture(CHAMP_NAME)
-REFINED_ITEMS_LIST = getItemsListAsJson(PATCH)
-retrieveFullKeyFromName("Prowler's Claw", REFINED_ITEMS_LIST)  # 6693
-getItemPicture("Prowler's Claw", PATCH, REFINED_ITEMS_LIST, "testItem")
+# getChampProfilePicture(CHAMP_NAME)
+# getChampLoadingScreenPicture(CHAMP_NAME)
+# REFINED_ITEMS_LIST = getItemsListAsJson(PATCH)
+# # retrieveFullKeyFromName("Prowler's Claw", REFINED_ITEMS_LIST)  # 6693
+# # getItemPicture("Prowler's Claw", PATCH, REFINED_ITEMS_LIST, "testItem")
+# itemNamesList = ["Echoes of Helia", "Vigilant Wardstone", "Rabadon's Deathcap"]
+# getThreeFirstItems(itemNamesList, PATCH, REFINED_ITEMS_LIST)
+# itemNamesList2 = ["Statikk Shiv", "Sterak's Gage"]
+# getFillersItems(itemNamesList2, PATCH, REFINED_ITEMS_LIST)
