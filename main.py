@@ -4,9 +4,10 @@
 
 # Scripts imports
 from scripts.getAssets import *
+from scripts.generateImg import *
 
 # Constants
-CHAMP_NAME = "Aatrox"  # Do not forget to CAPS the first char
+CHAMP_NAME = "Zed"  # Do not forget to CAPS the first char
 PATCH = getLastVersionAvailable()
 REFINED_ITEMS_LIST = getItemsListAsJson(PATCH)
 THREE_ITEMS_BUILD = ["Echoes of Helia",
@@ -37,3 +38,9 @@ getThreeFirstItems(THREE_ITEMS_BUILD, PATCH, REFINED_ITEMS_LIST)
 
 # Get filler items
 getFillersItems(FILLER_ITEMS, PATCH, REFINED_ITEMS_LIST)
+
+# -------------------
+# Images generation
+# -------------------
+
+generateFirstImage(CHAMP_NAME, PATCH)
