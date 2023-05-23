@@ -30,7 +30,8 @@ def getChampProfilePicture(champName):
     data = response.content
 
     # Specify the file path.
-    file_path = os.path.join(TEMP_FOLDER_PATH, "champion-profile-picture.png")
+    file_path = os.path.join(TEMP_FOLDER_PATH + "/champ",
+                             "champion-profile-picture.png")
 
     # Save the response to the file.
     with open(file_path, "wb") as f:
@@ -50,7 +51,7 @@ def getChampLoadingScreenPicture(champName):
     data = response.content
 
     file_path = os.path.join(
-        TEMP_FOLDER_PATH, "champion-loading-screen-picture.jpg")
+        TEMP_FOLDER_PATH + "/champ", "champion-loading-screen-picture.jpg")
 
     with open(file_path, "wb") as f:
         f.write(data)
@@ -107,7 +108,7 @@ def getItemPicture(itemName, patch, refinedItemsList, pictureFileName):
     data = response.content
 
     file_path = os.path.join(
-        TEMP_FOLDER_PATH, pictureFileName + ".png")
+        TEMP_FOLDER_PATH + "/build", pictureFileName + ".png")
 
     with open(file_path, "wb") as f:
         f.write(data)
